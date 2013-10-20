@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'html-diff'
+require 'html_diff'
 
 differ = HtmlDiff.new(args=ARGV)
+differ.make_diff
 

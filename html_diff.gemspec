@@ -6,5 +6,7 @@ Gem::Specification.new do |s|
   s.description = "A pretty, html-formatted git diff"
   s.authors     = ["Sarah Adams"]
   s.files       = ["lib/html_diff.rb"]
+  s.email       = 'sadams.codes@gmail.com'
+  s.executables = ["html-diff"]
   s.homepage    = 'http://rubygems.org/gems/html-diff'
 end
