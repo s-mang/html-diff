@@ -8,6 +8,9 @@ class HtmlDiff
 
   def stats_line
     stats=`git diff --stat #{@argv.join(" ")}`
+    if stats.blank?
+      return "no changes"
+    end
     stats.scan(/\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(\-\)/).last
   end
 
@@ -18,6 +21,9 @@ class HtmlDiff
 
   def html_diff
     diff=`git diff #{@argv.join(" ")}`
+    if diff.blank?
+      return
+    end
     diff.gsub!(/^diff \-\-git a\/([^\s]*).*\n.*$/) { "<div class='diff-file'>"+$1+"</div>" }
     diff.gsub!(/^(\-\-\-\s)(a.*)$/) { "<div class='code'><span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
     diff.gsub!(/(\n\<div class\=\'diff-file\'\>)/) { "</div>"+$1}
