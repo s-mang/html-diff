@@ -1,13 +1,13 @@
 class HtmlDiff
-  attr_accessor :wd
+  attr_accessor :wd, :argv
 
-  def wd
-    @wd ||= `pwd`.gsub("\n", "")
+  def initialize(argv=[])
+    @wd = `pwd`.gsub("\n", "")
+    @argv = argv
   end
 
   def stats_line
-    stats=`git diff --stat #{ARGV.join(" ")}`
-    puts stats
+    stats=`git diff --stat #{@argv.join(" ")}`
     stats.scan(/\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(\-\)/).last
   end
 
@@ -17,7 +17,7 @@ class HtmlDiff
   end
 
   def html_diff
-    diff=`git diff #{ARGV.join(" ")}`
+    diff=`git diff #{@argv.join(" ")}`
     diff.gsub!(/^diff \-\-git a\/([^\s]*).*\n.*$/) { "<div class='diff-file'>"+$1+"</div>" }
     diff.gsub!(/^(\-\-\-\s)(a.*)$/) { "<div class='code'><span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
     diff.gsub!(/(\n\<div class\=\'diff-file\'\>)/) { "</div>"+$1}
@@ -112,12 +112,12 @@ class HtmlDiff
   end
 
   def make_diff
-    File.open(wd+"/mydiff.html", "wb+") do |f|
+    File.open(@wd+"/mydiff.html", "wb+") do |f|
       f.write(content)
     end
 
-    `open #{wd}/mydiff.html`
-    `sleep 5 && rm #{wd}/mydiff.html`
+    `open #{@wd}/mydiff.html`
+    `sleep 5 && rm #{@wd}/mydiff.html`
   end
 end
 

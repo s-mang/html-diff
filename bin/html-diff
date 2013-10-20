@@ -2,3 +2,5 @@
 
 require 'html-diff'
 
+differ = HtmlDiff.new(args=ARGV)
+
