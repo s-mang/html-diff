@@ -7,7 +7,8 @@ class HtmlDiff
 
   def stats_line
     stats=`git diff --stat #{ARGV.join(" ")}`
-    stats.scan(/\d+ files changed, \d+ insertions\(\+\), \d+ deletions\(\-\)/).last
+    puts stats
+    stats.scan(/\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(\-\)/).last
   end
 
   def branch
@@ -24,9 +25,7 @@ class HtmlDiff
 
     diff.gsub!(/^(\++)(.*)$/) { "<span class='add'>"+$1+"&nbsp;"+$2+"</span>" }
     diff.gsub!(/^(\-+)(.*)$/) { "<span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
-
-    diff.gsub!(/\n/, "<br>")
-    diff.gsub!(/\t/, "<span class='tab'> </span>")
+    diff
   end
 
   def initial_content
@@ -108,8 +107,8 @@ class HtmlDiff
   def content
     content = initial_content
     content += "<h2>" + branch + "<br>" + stats_line + "</h2>"
-    content += diff
-    content += "</body></html>"
+    content += "<pre>"+html_diff
+    content += "</pre></body></html>"
   end
 
   def make_diff
@@ -117,8 +116,8 @@ class HtmlDiff
       f.write(content)
     end
 
-    `open #{wd}+/mydiff.html`
-    `sleep 5 && rm #{wd}+/mydiff.html`
+    `open #{wd}/mydiff.html`
+    `sleep 5 && rm #{wd}/mydiff.html`
   end
 end
 
