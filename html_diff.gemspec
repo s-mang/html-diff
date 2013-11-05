@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'html-diff'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2013-10-18'
   s.summary     = "HTML git-diff"
   s.description = "A pretty, html-formatted git diff"
