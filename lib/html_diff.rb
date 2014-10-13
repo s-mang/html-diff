@@ -16,7 +16,7 @@ class HtmlDiff
 
   def branch
     status=`git status`
-    status.scan(/# On branch (.*)\n/).last.last
+    status.scan(/On branch (.*)\n/).last.last
   end
 
   def html_diff
