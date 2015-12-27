@@ -11,7 +11,13 @@ class HtmlDiff
     if stats == ""
       return "no changes"
     end
-    stats.scan(/\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(\-\)/).last
+    out_stats=[]
+    out_stats << stats.scan(/\d+ files? changed/).last
+    out_stats << stats.scan(/\d+ insertions?\(\+\)/).last
+    out_stats << stats.scan(/\d+ deletions?\(\-\)/).last
+    out_stats.reject!(&:nil?)
+    
+    out_stats.join(", ")
   end
 
   def branch
