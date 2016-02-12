@@ -27,6 +27,8 @@ class HtmlDiff
 
   def html_diff
     diff=`git diff #{@argv.join(" ")}`
+    diff.gsub!("<", "&lt;")
+    diff.gsub!(">", "&gt;")
     diff.gsub!(/^index [a-z0-9]{7}\.\.[a-z0-9]{7}$/, "")
     diff.gsub!(/^diff \-\-git a\/([^\s]*).*\n.*$/) { "<div class='diff-file'>"+$1+"</div>" }
     diff.gsub!(/^(\-\-\-\s)((?:a.*)|(?:\/dev\/null.*))$/) { "<div class='code'><span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
@@ -117,8 +119,7 @@ class HtmlDiff
   def content
     content = initial_content
     content += "<h2>" + branch + "<br>" + stats_line + "</h2>"
-    content += "<pre>"+html_diff
-    content += "</pre></body></html>"
+    content += html_diff+"</body></html>"
   end
 
   def make_diff
