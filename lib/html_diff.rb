@@ -69,7 +69,7 @@ class HtmlDiff
       padding: 12px 25px;
       text-shadow: 0 1px 0 white;
       width: 80%;
-      margin: 50px auto 0;
+      margin: 50px auto 17px;
       float: none;
     }
     .code .add {
@@ -109,6 +109,7 @@ class HtmlDiff
       padding: 5px 25px;
       width: 80%;
       margin: -18px auto;
+      word-wrap: break-word;
     }
     </style>
     </head>
