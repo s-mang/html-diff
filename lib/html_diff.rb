@@ -31,8 +31,8 @@ class HtmlDiff
     diff.gsub!(">", "&gt;")
     diff.gsub!(/^index [a-z0-9]{7}\.\.[a-z0-9]{7}$/, "")
     diff.gsub!(/^diff \-\-git a\/([^\s]*).*\n.*$/) { "<div class='diff-file'>"+$1+"</div>" }
-    diff.gsub!(/^(\-\-\-\s)((?:a.*)|(?:\/dev\/null.*))$/) { "<div class='code'><span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
-    diff.gsub!(/(\n\<div class\=\'diff-file\'\>)/) { "</div>"+$1}
+    diff.gsub!(/^(\-\-\-\s)((?:a.*)|(?:\/dev\/null.*))$/) { "<pre class='code'><span class='delete'>"+$1+"&nbsp;"+$2+"</span>" }
+    diff.gsub!(/(\n\<div class\=\'diff-file\'\>)/) { "</pre>"+$1}
     diff.gsub!(/^(\@\@.*)$/) { "<br><span class='at-linenums'>"+$1+"</span>"}
 
     diff.gsub!(/^(\++)(.*)$/) { "<span class='add'>"+$1+"&nbsp;"+$2+"</span>" }
@@ -66,7 +66,7 @@ class HtmlDiff
       color: #555;
       font: 14px sans-serif;
       overflow: hidden;
-      padding: 12px 25px;
+      padding: 12px 0px 12px 25px;
       text-shadow: 0 1px 0 white;
       width: 80%;
       margin: 50px auto 17px;
@@ -74,14 +74,14 @@ class HtmlDiff
     }
     .code .add {
       background-color: #DDFFDD;
-      padding: 1px 2% 1px 10px;
+      padding: 2px 2% 2px 10px;
       margin-left: -25px;
       display:inline-block;
       width: 105%;
     }
     .code .delete {
       background-color: #FFDDDD;
-      padding: 1px 2% 1px 10px;
+      padding: 2px 2% 2px 10px;
       margin-left: -25px;
       display:inline-block;
       width: 105%;
@@ -106,10 +106,11 @@ class HtmlDiff
       background-clip: padding-box;
       background-color: #FAFAFB;
       color: #393939;
-      padding: 5px 25px;
+      padding: 5px 0px 5px 25px;
       width: 80%;
       margin: -18px auto;
-      word-wrap: break-word;
+      overflow: scroll;
+      float: none;
     }
     </style>
     </head>
